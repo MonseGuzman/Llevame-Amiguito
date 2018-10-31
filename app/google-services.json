@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "312190830548",
+    "firebase_url": "https://utopian-pilot-206021.firebaseio.com",
+    "project_id": "utopian-pilot-206021",
+    "storage_bucket": "utopian-pilot-206021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312190830548:android:d2accdaf3f0a7a22",
+        "android_client_info": {
+          "package_name": "com.monse.andrea.proyectofinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312190830548-f2lvqapktrflbakfhn5163t8fq0l03gs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monse.andrea.proyectofinal",
+            "certificate_hash": "6ce9ef74822e428689e86fa026e6ba66becb4a33"
+          }
+        },
+        {
+          "client_id": "312190830548-s8cbgtoveqdv28qh7jn9sk55d6nup2g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLr76antsLMDf85xh3kE5NVpTHJ5TXQBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312190830548-s8cbgtoveqdv28qh7jn9sk55d6nup2g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
