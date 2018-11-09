@@ -126,18 +126,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
-    private void resultadoLogin(GoogleSignInResult result)
-    {
-        if(result.isSuccess())
-            abrirActivity();
-        else
-            Toast.makeText(this, "Uy! no se puedo iniciar", Toast.LENGTH_SHORT).show();
-    }
-
     private void abrirActivity()
     {
-        Intent i = new Intent(this, MainActivity.class);
-        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent i = new Intent(this, AmiguitoActivity.class);
+        //Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 

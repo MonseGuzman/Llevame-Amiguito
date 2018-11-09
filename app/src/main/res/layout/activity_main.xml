@@ -61,8 +61,8 @@
             android:id="@+id/CerrarButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cerrar Sesión"
-            android:onClick="signOut"/>
+            android:onClick="signOut"
+            android:text="Cerrar Sesión" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

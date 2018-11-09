@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AmiguitoActivity">
+    tools:context=".AmiguitoActivity"
+    android:id="@+id/amiguitoConstraint"
+    android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -12,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        app:tabSelectedTextColor="#E6C229"
+        app:tabSelectedTextColor="#D32F2F"
         app:tabTextColor="@color/primaryTextColor"
         app:tabMode="fixed"
         app:tabGravity="fill" />
@@ -23,4 +25,4 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tabs" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

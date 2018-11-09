@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         CerrarButton = (Button) findViewById(R.id.CerrarButton);
     }
 
-    private void signOut(View v)
+    public void signOut(View v)
     {
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseAuth.getInstance().signOut();
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-    }
+    }*/
 
     private void resultadosObtenidos(GoogleSignInResult result)
     {

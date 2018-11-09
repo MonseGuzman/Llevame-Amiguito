@@ -4,6 +4,8 @@
     <string name="bienvenida">¡Bienvenido Conductor/Amigo!</string>
     <string name="iniciarSesion">Inicia Sesión</string>
     <string name="cerrarSesion">Cerrar Sesión</string>
+    <string name="graciasSesion">Nos vemos pronto</string>
+    <string name="direccionPedir">Ingrese su dirección</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
