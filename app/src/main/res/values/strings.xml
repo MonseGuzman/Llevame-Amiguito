@@ -1,13 +1,27 @@
 <resources>
     <string name="app_name">nombre después</string>
 
-    <string name="bienvenida">¡Bienvenido Conductor/Amigo!</string>
-    <string name="iniciarSesion">Inicia Sesión</string>
     <string name="cerrarSesion">Cerrar Sesión</string>
+    <string name="miAuto">Mi auto</string>
+    <string name="acercaDe">Acerca de</string>
+
     <string name="graciasSesion">Nos vemos pronto</string>
     <string name="direccionPedir">Ingrese su dirección</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="placas">Ingrese sus placas</string>
+    <string name="ingresarDatosCarro">Más configuraciones del auto en </string>
+    <string name="ok">OK</string>
+
+    <string name="tuConductor">Tu conductor</string>
+    <string name="nombreConductor">Nombre del conductor</string>
+    <string name="tuPasajero">Tu pasajero</string>
+    <string name="nombrePasajero">Nombre del pasajero</string>
+    <string name="domicilio">Nombre de la calle</string>
+
+    <string name="pedirAuto">Pedir</string>
+    <string name="confirmar">Confirmar viaje</string>
+
+    <string name="color">Ingrese el color</string>
+    <string name="marca">Ingrese la marca</string>
 
 </resources>

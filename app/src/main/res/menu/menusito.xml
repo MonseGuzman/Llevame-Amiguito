@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/miAuto_menu"
+        android:title="@string/miAuto" />
+    <item
         android:id="@+id/cerrar_menu"
         android:title="@string/cerrarSesion" />
+    <item
+        android:id="@+id/acerca_menu"
+        android:title="@string/acercaDe" />
 </menu>

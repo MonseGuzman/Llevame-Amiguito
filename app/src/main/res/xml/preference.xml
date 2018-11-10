@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Mi auto"
+        android:key="mi_auto">
+
+        <CheckBoxPreference
+            android:id="@+id/auto_preference"
+            android:title="Seleccione si tiene auto"
+            android:key="auto"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Información de mi auto"
+        android:key="titulo_informacion">
+
+        <EditTextPreference
+            android:id="@+id/placas_preference"
+            android:defaultValue="Sin auto"
+            android:key="placas"
+            android:enabled="false"
+            android:singleLine="true"
+            android:title="Placas de tu auto"
+            android:summary="@string/placas" />
+
+        <EditTextPreference
+            android:id="@+id/color_preference"
+            android:defaultValue="Sin color"
+            android:key="color"
+            android:enabled="false"
+            android:singleLine="true"
+            android:title="Color de tu auto"
+            android:summary="@string/color" />
+
+        <EditTextPreference
+            android:id="@+id/marca_preference"
+            android:defaultValue="Sin marca"
+            android:key="marca"
+            android:enabled="false"
+            android:singleLine="true"
+            android:title="Marca de tu auto"
+            android:summary="@string/marca" />
+    </PreferenceCategory>
+</PreferenceScreen>

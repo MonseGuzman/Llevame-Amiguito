@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:hint="@string/direccionPedir"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:focusable="false"/>
 
         <Button
             android:id="@+id/BuscarCondurButton"
@@ -28,8 +29,8 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_search"
             android:paddingTop="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_weight="0"/>
+            android:paddingBottom="1dp"
+            android:background="@color/colorPrimaryDark" />
     </LinearLayout>
 
 

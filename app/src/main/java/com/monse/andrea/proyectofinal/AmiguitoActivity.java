@@ -1,13 +1,14 @@
 package com.monse.andrea.proyectofinal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.monse.andrea.proyectofinal.adapters.TabsAdapter;
+import com.monse.andrea.proyectofinal.preferences.PreferenciasActitvity;
 
 public class AmiguitoActivity extends AppCompatActivity
 {
@@ -106,6 +108,22 @@ public class AmiguitoActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    private void alerta()
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.acercaDe)
+                .setMessage("Integrantes: \n Andrea Monserrat Guzmán López " +
+                        "\n Diego Osvaldo Solorio Lara \n Victor Topete Arce" )
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setCancelable(false)
+        .show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -135,13 +153,20 @@ public class AmiguitoActivity extends AppCompatActivity
                 });
                 FirebaseAuth.getInstance().signOut();
                 break;
+            case R.id.miAuto_menu:
+                Intent intent = new Intent(this, PreferenciasActitvity.class);
+                startActivity(intent);
+                break;
+            case R.id.acerca_menu:
+                alerta();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         //checa si el usuario inicio
@@ -160,5 +185,5 @@ public class AmiguitoActivity extends AppCompatActivity
                 }
             });
         }
-    }
+    }*/
 }
