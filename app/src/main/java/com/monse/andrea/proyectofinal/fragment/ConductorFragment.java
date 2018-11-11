@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.monse.andrea.proyectofinal.R;
+import com.monse.andrea.proyectofinal.clases.Conductores;
 
 public class ConductorFragment extends Fragment
 {
@@ -26,6 +34,7 @@ public class ConductorFragment extends Fragment
     private ListView listitaListView;
 
     private SharedPreferences preferences;
+    private DatabaseReference databaseReference;
 
     public ConductorFragment() {
         // Required empty public constructor
@@ -110,14 +119,4 @@ public class ConductorFragment extends Fragment
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    /*@Override
-    public void onResume() {
-        super.onResume();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean auto = preferences.getBoolean("auto", false);
-        String placas = preferences.getString("placas", "");
-        String color = preferences.getString("color", "");
-        String marca = preferences.getString("marca", "");
-    }*/
 }

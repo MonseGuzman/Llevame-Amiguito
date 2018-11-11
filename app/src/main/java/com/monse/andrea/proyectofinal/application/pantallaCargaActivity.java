@@ -1,7 +1,9 @@
 package com.monse.andrea.proyectofinal.application;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,7 @@ public class pantallaCargaActivity extends AppCompatActivity
         configuracionGoogle();
 
         OptionalPendingResult<GoogleSignInResult> option = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Intent amiguito = new Intent(this, AmiguitoActivity.class);
         Intent login = new Intent(this, LoginActivity.class);
@@ -35,7 +38,10 @@ public class pantallaCargaActivity extends AppCompatActivity
         if(option.isDone()) //si ya iniciamos sesion antes
             startActivity(amiguito);
         else //si la sesión expira o termina
+        {
             startActivity(login);
+            preferences.edit().clear().apply();
+        }
 
         finish();
     }

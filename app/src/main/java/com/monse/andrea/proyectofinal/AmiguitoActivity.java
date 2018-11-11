@@ -2,19 +2,23 @@ package com.monse.andrea.proyectofinal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -23,7 +27,11 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.monse.andrea.proyectofinal.adapters.TabsAdapter;
+import com.monse.andrea.proyectofinal.clases.Cliente;
+import com.monse.andrea.proyectofinal.clases.Conductores;
 import com.monse.andrea.proyectofinal.preferences.PreferenciasActitvity;
 
 public class AmiguitoActivity extends AppCompatActivity
@@ -32,6 +40,8 @@ public class AmiguitoActivity extends AppCompatActivity
     private ViewPager viewPager;
 
     private GoogleApiClient googleApiClient;
+    private DatabaseReference databaseReference;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,7 @@ public class AmiguitoActivity extends AppCompatActivity
         inicia();
         configuracionGoogle();
         tab();
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     private void configuracionGoogle()
@@ -124,6 +135,43 @@ public class AmiguitoActivity extends AppCompatActivity
         .show();
     }
 
+    private void verificarConductor()
+    {
+        OptionalPendingResult<GoogleSignInResult> option = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        if(option.isDone())
+        {
+            GoogleSignInResult result = option.get();
+
+            if (result.isSuccess())
+            {
+                GoogleSignInAccount account = result.getSignInAccount();
+
+                boolean auto = preferences.getBoolean("auto", false);
+                String placas = preferences.getString("placas", "");
+                String color = preferences.getString("color", "");
+                String marca = preferences.getString("marca", "");
+
+                if (auto) //conductor
+                {
+                    Conductores conductores = new Conductores(account.getDisplayName(), "", account.getPhotoUrl().toString(), color, marca, placas);
+                    databaseReference.child("conductores")
+                            .setValue(conductores);
+                    Log.d("a", "envio los datos conductor");
+                }
+                else //cliente
+                {
+                    Cliente cliente = new Cliente(account.getDisplayName(), "", account.getPhotoUrl().toString());
+                    databaseReference.child("cliente")
+                            .setValue(cliente);
+
+                    Log.d("a", "envio los datos cliente");
+                }
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -152,6 +200,7 @@ public class AmiguitoActivity extends AppCompatActivity
                     }
                 });
                 FirebaseAuth.getInstance().signOut();
+                preferences.edit().clear().apply();
                 break;
             case R.id.miAuto_menu:
                 Intent intent = new Intent(this, PreferenciasActitvity.class);
@@ -166,24 +215,11 @@ public class AmiguitoActivity extends AppCompatActivity
         return true;
     }
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        //checa si el usuario inicio
-        OptionalPendingResult<GoogleSignInResult> option = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
 
-        if(option.isDone()) //si ya iniciamos sesion antes
-        {
-            GoogleSignInResult result = option.get();
-        }
-        else //si la sesión expira o termina
-        {
-            option.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-                    iniciarNuevamente();
-                }
-            });
-        }
-    }*/
+        verificarConductor();
+    }
 }
