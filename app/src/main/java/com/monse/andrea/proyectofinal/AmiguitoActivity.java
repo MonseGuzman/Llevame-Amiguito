@@ -156,7 +156,7 @@ public class AmiguitoActivity extends AppCompatActivity
                 if (auto) //conductor
                 {
                     Conductores conductores = new Conductores(account.getDisplayName(), "", account.getPhotoUrl().toString(), color, marca, placas);
-                    databaseReference.child("conductores")
+                    databaseReference.child("conductores").child(account.getId())
                             .setValue(conductores);
                     Log.d("a", "envio los datos conductor");
                 }
