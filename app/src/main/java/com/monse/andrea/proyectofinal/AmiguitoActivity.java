@@ -163,7 +163,7 @@ public class AmiguitoActivity extends AppCompatActivity
                 else //cliente
                 {
                     Cliente cliente = new Cliente(account.getDisplayName(), "", account.getPhotoUrl().toString());
-                    databaseReference.child("cliente")
+                    databaseReference.child("cliente").child(account.getId())
                             .setValue(cliente);
 
                     Log.d("a", "envio los datos cliente");
