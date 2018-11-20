@@ -17,7 +17,7 @@
 
         <EditTextPreference
             android:id="@+id/placas_preference"
-            android:defaultValue="Sin auto"
+            android:defaultValue=" "
             android:key="placas"
             android:enabled="false"
             android:singleLine="true"
@@ -26,7 +26,7 @@
 
         <EditTextPreference
             android:id="@+id/color_preference"
-            android:defaultValue="Sin color"
+            android:defaultValue=" "
             android:key="color"
             android:enabled="false"
             android:singleLine="true"
@@ -35,7 +35,7 @@
 
         <EditTextPreference
             android:id="@+id/marca_preference"
-            android:defaultValue="Sin marca"
+            android:defaultValue=" "
             android:key="marca"
             android:enabled="false"
             android:singleLine="true"

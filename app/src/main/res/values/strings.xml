@@ -17,6 +17,7 @@
     <string name="tuPasajero">Tu pasajero</string>
     <string name="nombrePasajero">Nombre del pasajero</string>
     <string name="domicilio">Nombre de la calle</string>
+    <string name="SuDestino">Su destino</string>
 
     <string name="pedirAuto">Pedir</string>
     <string name="confirmar">Confirmar viaje</string>

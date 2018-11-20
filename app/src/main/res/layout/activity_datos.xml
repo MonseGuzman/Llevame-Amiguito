@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="350dp"
-        android:layout_height="84dp"
+        android:layout_height="105dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
@@ -30,8 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingStart="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,6 +48,14 @@
                 android:text="@string/nombreConductor"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/SuDestinoPersonaTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SuDestino"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="15dp" />
 
         </LinearLayout>
 

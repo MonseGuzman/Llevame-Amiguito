@@ -24,22 +24,19 @@ public class PreferenciasActitvity extends PreferenceActivity
 
         iniciar();
 
+        cambio(auto_preference.isChecked());
+
         auto_preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference preference, Object newValue)
             {
                 if(newValue.toString().equals("true"))
                 {
                     Log.d("MyApp", "Pref " + preference.getKey() + " changed to " + newValue.toString());
-                    placas_preference.setEnabled(true);
-                    color_preference.setEnabled(true);
-                    marca_preference.setEnabled(true);
+                    cambio(true);
                 }
                 else
-                {
-                    placas_preference.setEnabled(false);
-                    color_preference.setEnabled(false);
-                    marca_preference.setEnabled(false);
-                }
+                    cambio(false);
+
                 return true;
             }
         });
@@ -51,6 +48,22 @@ public class PreferenciasActitvity extends PreferenceActivity
         placas_preference = (EditTextPreference)getPreferenceManager().findPreference("placas");
         color_preference = (EditTextPreference)getPreferenceManager().findPreference("color");
         marca_preference = (EditTextPreference)getPreferenceManager().findPreference("marca");
+    }
+
+    private void cambio(boolean ban)
+    {
+        if(ban)
+        {
+            placas_preference.setEnabled(true);
+            color_preference.setEnabled(true);
+            marca_preference.setEnabled(true);
+        }
+        else
+        {
+            placas_preference.setEnabled(false);
+            color_preference.setEnabled(false);
+            marca_preference.setEnabled(false);
+        }
     }
 
 }

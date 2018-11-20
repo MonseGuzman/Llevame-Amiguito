@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
 import com.monse.andrea.proyectofinal.R;
 import com.squareup.picasso.Picasso;
 
@@ -16,12 +18,14 @@ public class ClienteAdapter extends BaseAdapter
     private Context context;
     //private VwPedidos lista[];
     private int layout;
+    private DatabaseReference databaseReference;
+    private ChildEventListener childEventListener;
 
-    public ClienteAdapter(Context context, int layout/*, VwPedidos lista[]*/)
-    {
+    public ClienteAdapter(Context context, int layout, DatabaseReference databaseReference, ChildEventListener childEventListener) {
         this.context = context;
         this.layout = layout;
-        //this.lista = lista;
+        this.databaseReference = databaseReference;
+        this.childEventListener = childEventListener;
     }
 
     @Override
