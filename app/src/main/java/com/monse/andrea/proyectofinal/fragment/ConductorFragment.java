@@ -29,7 +29,8 @@ import com.monse.andrea.proyectofinal.clases.Conductores;
 
 public class ConductorFragment extends Fragment
 {
-    private EditText DireccionEditText;
+    private EditText DireccionOrigenEditText;
+    private EditText DireccionDestinoEditText;
     private Button BuscarCondurButton;
     private ListView listitaListView;
 
@@ -48,7 +49,7 @@ public class ConductorFragment extends Fragment
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preference, false);
 
-        hideKeyboardFrom(getActivity(), DireccionEditText);
+        hideKeyboardFrom(getActivity(), DireccionOrigenEditText);
         BuscarCondurButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,8 +72,10 @@ public class ConductorFragment extends Fragment
 
     private void iniciar(View v)
     {
-        DireccionEditText = (EditText)v.findViewById(R.id.DireccionEditText);
+        DireccionOrigenEditText = (EditText)v.findViewById(R.id.DireccionOrigenEditText);
+        DireccionDestinoEditText = (EditText)v.findViewById(R.id.DireccionDestinoEditText);
         BuscarCondurButton = (Button)v.findViewById(R.id.BuscarCondurButton);
+
     }
 
     private void dialogo()
