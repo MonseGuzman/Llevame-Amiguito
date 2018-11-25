@@ -1,8 +1,10 @@
 package com.monse.andrea.proyectofinal.fragment;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,21 +23,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.monse.andrea.proyectofinal.R;
+import com.monse.andrea.proyectofinal.adapters.ConductoresAdapter;
 import com.monse.andrea.proyectofinal.clases.Conductores;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class PedirFragment extends Fragment
 {
-    private EditText DireccionEditText;
-    private Button BuscarCondurButton;
+    private TextView VamosTextView;
     private ListView listitaListView;
 
     private DatabaseReference databaseReference;
-    private ValueEventListener mPostListener;
-    private DatabaseReference mPostReference;
+    SharedPreferences preferences;
 
     public PedirFragment() {
         // Required empty public constructor
@@ -48,69 +47,138 @@ public class PedirFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_pedir, container, false);
         iniciar(v);
 
-        hideKeyboardFrom(getActivity(), DireccionEditText);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        mPostReference = FirebaseDatabase.getInstance().getReference().child("conductores");
-
-        BuscarCondurButton.setOnClickListener(new View.OnClickListener() {
+        VamosTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 //código para la búsqueda
-                Toast.makeText(getActivity(), "Busca", Toast.LENGTH_SHORT).show();
-                buscar();
+                dialogo();
             }
         });
+
         return v;
     }
 
     private void iniciar(View v)
     {
-        DireccionEditText = (EditText)v.findViewById(R.id.DireccionEditText);
-        BuscarCondurButton = (Button)v.findViewById(R.id.BuscarCondurButton);
+        VamosTextView = (TextView) v.findViewById(R.id.VamosTextView);
+        listitaListView = (ListView)v.findViewById(R.id.listitaListView);
     }
 
-    //Este método sirve para bajar el teclado
-    public static void hideKeyboardFrom(Context context, View view)
+    private void dialogo()
     {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+        final AlertDialog.Builder dialogo = new AlertDialog.Builder(getActivity());
+        final View v = getLayoutInflater().inflate(R.layout.busca_personas, null);
 
-    private void buscar()
-    {
-        List<Conductores> lista;
-        Query query = FirebaseDatabase.getInstance().getReference().child("conductores");
+        Button OkButton = (Button)v.findViewById(R.id.BuscarConductorButton);
+        final EditText DireccionOrigenEditText = (EditText)v.findViewById(R.id.DireccionOrigenEditText);
+        final EditText DireccionDestinoEditText = (EditText)v.findViewById(R.id.DireccionDestinoEditText);
 
-        //ver mañana
-        query.addChildEventListener(new ChildEventListener() {
+        dialogo.setView(DireccionDestinoEditText);
+        dialogo.setView(DireccionOrigenEditText);
+        dialogo.setView(v);
+        final AlertDialog mensaje = dialogo.create();
+
+        OkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("ah", dataSnapshot.getValue().toString());
+            public void onClick(View view)
+            {
+                buscar(DireccionDestinoEditText.getText().toString(), DireccionOrigenEditText.getText().toString());
 
-                Log.d("a", dataSnapshot.getValue(Conductores.class).getColor());
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                mensaje.dismiss();
             }
         });
+        mensaje.setCancelable(true);
+        mensaje.show();
+    }
+
+
+    private void buscar(String destino, String origen)
+    {
+        String id = preferences.getString("id", "");
+
+        if(!id.isEmpty())
+        {
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("cliente").child(id);
+
+            databaseReference.child("ubicacion").setValue(origen);
+            databaseReference.child("destino").setValue(destino);
+
+            consulta c = new consulta(destino);
+            c.execute();
+        }
+    }
+
+    public class consulta extends AsyncTask<Void, Void, Void >
+    {
+        String ubicacion;
+        ArrayList<Conductores> list = new ArrayList<>();
+
+        public consulta(String ubicacion)
+        {
+            this.ubicacion = ubicacion;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            Query query = FirebaseDatabase.getInstance().getReference().child("conductores");
+
+            query.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    Log.d("addChildEventListener", dataSnapshot.getValue().toString());
+
+                    if(dataSnapshot.getValue(Conductores.class).getDestino().equals(ubicacion))
+                    {
+                        Conductores conductores = new Conductores(
+                                dataSnapshot.getValue(Conductores.class).getNombre(), dataSnapshot.getValue(Conductores.class).getUbicacion(),
+                                dataSnapshot.getValue(Conductores.class).getDestino(), dataSnapshot.getValue(Conductores.class).getFoto(),
+                                dataSnapshot.getValue(Conductores.class).getColor(), dataSnapshot.getValue(Conductores.class).getMarca(),
+                                dataSnapshot.getValue(Conductores.class).getPlaca());
+
+                        list.add(conductores);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            cargarLista(list);
+        }
+    }
+
+    private void cargarLista(ArrayList<Conductores> list)
+    {
+        ConductoresAdapter adapter = new ConductoresAdapter(getActivity(), R.layout.datitos, list);
+        listitaListView.setAdapter(adapter);
     }
 }

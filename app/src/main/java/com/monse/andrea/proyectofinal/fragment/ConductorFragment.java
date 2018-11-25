@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -33,6 +34,7 @@ public class ConductorFragment extends Fragment
     private EditText DireccionDestinoEditText;
     private Button BuscarCondurButton;
     private ListView listitaListView;
+    private TextView VamosTextView;
 
     private SharedPreferences preferences;
     private DatabaseReference databaseReference;
@@ -49,7 +51,7 @@ public class ConductorFragment extends Fragment
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preference, false);
 
-        hideKeyboardFrom(getActivity(), DireccionOrigenEditText);
+        /*hideKeyboardFrom(getActivity(), DireccionOrigenEditText);
         BuscarCondurButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,16 +67,15 @@ public class ConductorFragment extends Fragment
                     Toast.makeText(getActivity(), "Busca", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
         return v;
     }
 
     private void iniciar(View v)
     {
-        DireccionOrigenEditText = (EditText)v.findViewById(R.id.DireccionOrigenEditText);
-        DireccionDestinoEditText = (EditText)v.findViewById(R.id.DireccionDestinoEditText);
-        BuscarCondurButton = (Button)v.findViewById(R.id.BuscarCondurButton);
+        VamosTextView = (TextView) v.findViewById(R.id.VamosTextView);
+        listitaListView = (ListView)v.findViewById(R.id.listitaListView);
 
     }
 
@@ -95,7 +96,8 @@ public class ConductorFragment extends Fragment
             public void onClick(View view)
             {
                 Toast.makeText(getActivity(), PlacasEditText.getText().toString(), Toast.LENGTH_SHORT).show();
-                guardarPreferencias(PlacasEditText.getText().toString());
+                if(!PlacasEditText.getText().toString().isEmpty())
+                    guardarPreferencias(PlacasEditText.getText().toString());
                 mensaje.dismiss();
                 hideKeyboardFrom(getActivity(), PlacasEditText);
             }

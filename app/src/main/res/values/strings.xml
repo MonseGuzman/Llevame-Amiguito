@@ -8,6 +8,8 @@
     <string name="graciasSesion">Nos vemos pronto</string>
     <string name="direccionPedir">Ingrese su dirección</string>
     <string name="direccionDestino">Ingrese su destino</string>
+    <string name="necesitasIrte">¿Necesitas ir a algún lado?</string>
+    <string name="necesitasLlevar">¿Quieres conocer a un nuevo acompañante?</string>
 
     <string name="placas">Ingrese sus placas</string>
     <string name="ingresarDatosCarro">Más configuraciones del auto en </string>

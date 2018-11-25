@@ -1,6 +1,7 @@
 package com.monse.andrea.proyectofinal.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,36 +9,32 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseReference;
 import com.monse.andrea.proyectofinal.R;
+import com.monse.andrea.proyectofinal.clases.Conductores;
 import com.squareup.picasso.Picasso;
 
-public class ClienteAdapter extends BaseAdapter
+import java.util.ArrayList;
+
+public class ConductoresAdapter extends BaseAdapter
 {
     private Context context;
-    //private VwPedidos lista[];
     private int layout;
-    private DatabaseReference databaseReference;
-    private ChildEventListener childEventListener;
+    private ArrayList<Conductores> lista;
 
-    public ClienteAdapter(Context context, int layout, DatabaseReference databaseReference, ChildEventListener childEventListener) {
+    public ConductoresAdapter(Context context, int layout, ArrayList<Conductores> lista) {
         this.context = context;
         this.layout = layout;
-        this.databaseReference = databaseReference;
-        this.childEventListener = childEventListener;
+        this.lista = lista;
     }
 
     @Override
     public int getCount() {
-       /* if(lista != null)
-            return lista.length;
-        else*/ return 0;
+       return lista.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return 0/*lista[position]*/;
+        return lista.get(position);
     }
 
     @Override
@@ -47,27 +44,28 @@ public class ClienteAdapter extends BaseAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ClienteAdapter.ViewHolder vh;
+        ConductoresAdapter.ViewHolder vh;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(layout, null);
-            vh = new ClienteAdapter.ViewHolder();
+            vh = new ConductoresAdapter.ViewHolder();
 
             vh.ContactoImageView = (ImageView) convertView.findViewById(R.id.ContactoImageView);
             vh.nombreTextView = (TextView) convertView.findViewById(R.id.nombreTextView);
             vh.domicilioTextView = (TextView) convertView.findViewById(R.id.domicilioTextView);
+            vh.destinoTextView = (TextView) convertView.findViewById(R.id.destinoTextView);
 
             convertView.setTag(vh);
         } else
-            vh = (ClienteAdapter.ViewHolder) convertView.getTag();
+            vh = (ConductoresAdapter.ViewHolder) convertView.getTag();
 
-        //VwPedidos pedidos = lista[position];
+        Conductores conductores = lista.get(position);
 
-        //imagen
-        Picasso.get().load("url").into(vh.ContactoImageView);
 
-        vh.nombreTextView.setText("");
-        vh.domicilioTextView.setText("");
+        Picasso.get().load(conductores.getFoto()).into(vh.ContactoImageView);
+        vh.nombreTextView.setText(conductores.getNombre());
+        vh.domicilioTextView.setText(conductores.getUbicacion());
+        vh.destinoTextView.setText(conductores.getDestino());
 
         return convertView;
     }
@@ -75,6 +73,6 @@ public class ClienteAdapter extends BaseAdapter
     public class ViewHolder
     {
         ImageView ContactoImageView;
-        TextView nombreTextView, domicilioTextView;
+        TextView nombreTextView, domicilioTextView, destinoTextView;
     }
 }

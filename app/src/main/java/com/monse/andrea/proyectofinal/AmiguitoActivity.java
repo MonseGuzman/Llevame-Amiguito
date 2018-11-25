@@ -155,21 +155,40 @@ public class AmiguitoActivity extends AppCompatActivity
 
                 if (auto) //conductor
                 {
-                    Conductores conductores = new Conductores(account.getDisplayName(), "", account.getPhotoUrl().toString(), color, marca, placas);
+                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas);
                     databaseReference.child("conductores").child(account.getId())
                             .setValue(conductores);
+
+                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "");
                     Log.d("a", "envio los datos conductor");
                 }
                 else //cliente
                 {
-                    Cliente cliente = new Cliente(account.getDisplayName(), "", account.getPhotoUrl().toString());
+                    Cliente cliente = new Cliente(account.getDisplayName(), "", "", account.getPhotoUrl().toString());
                     databaseReference.child("cliente").child(account.getId())
                             .setValue(cliente);
 
+                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "");
                     Log.d("a", "envio los datos cliente");
                 }
             }
         }
+    }
+
+    private void guardarLogin(String id, String nombre, String foto, String origen, String destino)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("id", id);
+        editor.putString("nombre", nombre);
+        editor.putString("foto", foto);
+        editor.putString("origen", origen);
+        editor.putString("destino", destino);
+
+        editor.commit(); // empieza a guardar los put*
+        editor.apply(); //guarda todos los cambios aunque no se guarden todos
     }
 
     @Override

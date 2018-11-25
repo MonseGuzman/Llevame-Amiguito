@@ -1,9 +1,15 @@
 package com.monse.andrea.proyectofinal.clases;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Conductores
 {
     private String nombre;
     private String ubicacion;
+    private String destino;
     private String foto;
     private String color;
     private String marca;
@@ -12,9 +18,10 @@ public class Conductores
     public Conductores() {
     }
 
-    public Conductores(String nombre, String ubicacion, String foto, String color, String marca, String placa) {
+    public Conductores(String nombre, String ubicacion, String destino, String foto, String color, String marca, String placa) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
+        this.destino = destino;
         this.foto = foto;
         this.color = color;
         this.marca = marca;
@@ -68,5 +75,14 @@ public class Conductores
     public void setPlaca(String placa) {
         this.placa = placa;
     }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
 }
 
