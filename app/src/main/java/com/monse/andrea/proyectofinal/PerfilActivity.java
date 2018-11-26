@@ -17,12 +17,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity
+public class PerfilActivity extends AppCompatActivity
 {
     private ImageView FotitoImageView;
     private TextView NombreTextView;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_perfil);
 
         iniciar();
 
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
                     {
-                        Toast.makeText(MainActivity.this, "ocurrio un error que desconozco", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PerfilActivity.this, "ocurrio un error que desconozco", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity
                 if (status.isSuccess())
                     inciarSesionNuevamente();
                 else
-                    Toast.makeText(MainActivity.this, "pequeño error al salir", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PerfilActivity.this, "pequeño error al salir", Toast.LENGTH_SHORT).show();
             }
         });
         FirebaseAuth.getInstance().signOut();

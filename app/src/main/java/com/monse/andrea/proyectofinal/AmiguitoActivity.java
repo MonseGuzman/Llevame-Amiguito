@@ -114,6 +114,8 @@ public class AmiguitoActivity extends AppCompatActivity
 
     private void iniciarNuevamente()
     {
+        preferences.edit().clear().apply();
+
         Intent i = new Intent(this, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);

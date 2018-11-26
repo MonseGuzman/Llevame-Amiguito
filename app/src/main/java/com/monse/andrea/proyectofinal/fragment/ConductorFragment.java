@@ -30,9 +30,6 @@ import com.monse.andrea.proyectofinal.clases.Conductores;
 
 public class ConductorFragment extends Fragment
 {
-    private EditText DireccionOrigenEditText;
-    private EditText DireccionDestinoEditText;
-    private Button BuscarCondurButton;
     private ListView listitaListView;
     private TextView VamosTextView;
 
@@ -51,8 +48,8 @@ public class ConductorFragment extends Fragment
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preference, false);
 
-        /*hideKeyboardFrom(getActivity(), DireccionOrigenEditText);
-        BuscarCondurButton.setOnClickListener(new View.OnClickListener() {
+        VamosTextView.setText(R.string.necesitasLlevar);
+        VamosTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -67,7 +64,7 @@ public class ConductorFragment extends Fragment
                     Toast.makeText(getActivity(), "Busca", Toast.LENGTH_SHORT).show();
                 }
             }
-        });*/
+        });
 
         return v;
     }
@@ -76,7 +73,6 @@ public class ConductorFragment extends Fragment
     {
         VamosTextView = (TextView) v.findViewById(R.id.VamosTextView);
         listitaListView = (ListView)v.findViewById(R.id.listitaListView);
-
     }
 
     private void dialogo()
@@ -95,7 +91,6 @@ public class ConductorFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getActivity(), PlacasEditText.getText().toString(), Toast.LENGTH_SHORT).show();
                 if(!PlacasEditText.getText().toString().isEmpty())
                     guardarPreferencias(PlacasEditText.getText().toString());
                 mensaje.dismiss();

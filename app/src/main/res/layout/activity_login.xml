@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondaryLightColor"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -33,25 +34,50 @@
             android:layout_marginEnd="8dp"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textColor="@color/secondaryColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
     </LinearLayout>
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/SignButton"
-        android:layout_width="329dp"
+    <LinearLayout
+        android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintVertical_bias="0.296">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/iniciarSesion"
+            android:textAlignment="center"
+            android:textColor="#b71c1c"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="350dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryTextColor" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/SignButton"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="14dp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

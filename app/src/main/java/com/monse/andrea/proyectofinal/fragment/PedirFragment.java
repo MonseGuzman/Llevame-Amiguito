@@ -1,6 +1,7 @@
 package com.monse.andrea.proyectofinal.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,13 +26,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.monse.andrea.proyectofinal.DatosActivity;
 import com.monse.andrea.proyectofinal.R;
 import com.monse.andrea.proyectofinal.adapters.ConductoresAdapter;
 import com.monse.andrea.proyectofinal.clases.Conductores;
 
 import java.util.ArrayList;
 
-public class PedirFragment extends Fragment
+public class PedirFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private TextView VamosTextView;
     private ListView listitaListView;
@@ -49,6 +53,7 @@ public class PedirFragment extends Fragment
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
+        VamosTextView.setText(R.string.necesitasIrte);
         VamosTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -57,6 +62,8 @@ public class PedirFragment extends Fragment
                 dialogo();
             }
         });
+
+        listitaListView.setOnItemClickListener(this);
 
         return v;
     }
@@ -94,7 +101,6 @@ public class PedirFragment extends Fragment
         mensaje.show();
     }
 
-
     private void buscar(String destino, String origen)
     {
         String id = preferences.getString("id", "");
@@ -109,6 +115,15 @@ public class PedirFragment extends Fragment
             consulta c = new consulta(destino);
             c.execute();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(getActivity(), "funciona", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getActivity(), DatosActivity.class);
+        intent.putExtra("valor", "chofer");
+        startActivity(intent);
     }
 
     public class consulta extends AsyncTask<Void, Void, Void >
