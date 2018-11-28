@@ -26,17 +26,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.monse.andrea.proyectofinal.DatosActivity;
 import com.monse.andrea.proyectofinal.R;
 import com.monse.andrea.proyectofinal.adapters.ConductoresAdapter;
+import com.monse.andrea.proyectofinal.clases.Cliente;
 import com.monse.andrea.proyectofinal.clases.Conductores;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PedirFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private TextView VamosTextView;
     private ListView listitaListView;
+    private List<Conductores> listaConductores;
 
     private DatabaseReference databaseReference;
     SharedPreferences preferences;
@@ -50,8 +54,10 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pedir, container, false);
         iniciar(v);
+        databaseReference = FirebaseDatabase.getInstance().getReference("cliente");
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        listaConductores = new ArrayList<>();
 
         VamosTextView.setText(R.string.necesitasIrte);
         VamosTextView.setOnClickListener(new View.OnClickListener() {
@@ -122,14 +128,19 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
         Toast.makeText(getActivity(), "funciona", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity(), DatosActivity.class);
-        intent.putExtra("valor", "chofer");
+        intent.putExtra("foto", listaConductores.get(i).getFoto());
+        intent.putExtra("nombre", listaConductores.get(i).getNombre());
+        intent.putExtra("destino", listaConductores.get(i).getDestino());
+        intent.putExtra("placa", listaConductores.get(i).getPlaca());
+        intent.putExtra("color", listaConductores.get(i).getColor());
+
         startActivity(intent);
     }
 
     public class consulta extends AsyncTask<Void, Void, Void >
     {
         String ubicacion;
-        ArrayList<Conductores> list = new ArrayList<>();
+        private List<Conductores> list = new ArrayList<>();
 
         public consulta(String ubicacion)
         {
@@ -147,7 +158,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
 
                     Log.d("addChildEventListener", dataSnapshot.getValue().toString());
 
-                    if(dataSnapshot.getValue(Conductores.class).getDestino().equals(ubicacion))
+                    if(dataSnapshot.getValue(Conductores.class).getDestino().contains(ubicacion))
                     {
                         Conductores conductores = new Conductores(
                                 dataSnapshot.getValue(Conductores.class).getNombre(), dataSnapshot.getValue(Conductores.class).getUbicacion(),
@@ -156,6 +167,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
                                 dataSnapshot.getValue(Conductores.class).getPlaca());
 
                         list.add(conductores);
+
                     }
                 }
 
@@ -186,12 +198,12 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            listaConductores = list;
             cargarLista(list);
         }
     }
 
-    private void cargarLista(ArrayList<Conductores> list)
+    private void cargarLista(List<Conductores> list)
     {
         ConductoresAdapter adapter = new ConductoresAdapter(getActivity(), R.layout.datitos, list);
         listitaListView.setAdapter(adapter);
