@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class DatosActivity extends AppCompatActivity
 {
     private TextView nombrePersonaTextView;
@@ -20,6 +22,26 @@ public class DatosActivity extends AppCompatActivity
         setContentView(R.layout.activity_datos);
 
         iniciar();
+
+        Bundle bundle = getIntent().getExtras();
+        cargarDatos(bundle);
+
+    }
+
+    private void cargarDatos(Bundle bundle)
+    {
+        String nombre = bundle.getString("nombre");
+        String foto = bundle.getString("foto");
+        String destino = bundle.getString("destino");
+        String placa = bundle.getString("placa");
+        String color = bundle.getString("color");
+
+        nombrePersonaTextView.setText(nombre);
+        SuDestinoPersonaTextView.setText(destino);
+        DatosConductorTextView.setText("PLACAS : " + placa + "\n"+
+                                        "COLOR : " + color + "\n");
+        Picasso.get().load(foto).into(FotoImageView);
+
     }
 
     private void iniciar()

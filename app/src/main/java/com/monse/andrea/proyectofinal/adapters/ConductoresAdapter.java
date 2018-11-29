@@ -14,14 +14,15 @@ import com.monse.andrea.proyectofinal.clases.Conductores;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConductoresAdapter extends BaseAdapter
 {
     private Context context;
     private int layout;
-    private ArrayList<Conductores> lista;
+    private List<Conductores> lista;
 
-    public ConductoresAdapter(Context context, int layout, ArrayList<Conductores> lista) {
+    public ConductoresAdapter(Context context, int layout, List<Conductores> lista) {
         this.context = context;
         this.layout = layout;
         this.lista = lista;
