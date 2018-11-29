@@ -157,7 +157,7 @@ public class AmiguitoActivity extends AppCompatActivity
 
                 if (auto) //conductor
                 {
-                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas);
+                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas, "");
                     databaseReference.child("conductores").child(account.getId())
                             .setValue(conductores);
 
@@ -170,14 +170,14 @@ public class AmiguitoActivity extends AppCompatActivity
                     databaseReference.child("cliente").child(account.getId())
                             .setValue(cliente);
 
-                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "");
+                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "", "");
                     Log.d("a", "envio los datos cliente");
                 }
             }
         }
     }
 
-    private void guardarLogin(String id, String nombre, String foto, String origen, String destino)
+    private void guardarLogin(String id, String nombre, String foto, String origen, String destino, String... estado)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -188,6 +188,7 @@ public class AmiguitoActivity extends AppCompatActivity
         editor.putString("foto", foto);
         editor.putString("origen", origen);
         editor.putString("destino", destino);
+        editor.putString("estado", String.valueOf(estado)); //revisa luego, lo hice rápido
 
         editor.commit(); // empieza a guardar los put*
         editor.apply(); //guarda todos los cambios aunque no se guarden todos

@@ -14,11 +14,12 @@ public class Conductores
     private String color;
     private String marca;
     private String placa;
+    private String estado;
 
     public Conductores() {
     }
 
-    public Conductores(String nombre, String ubicacion, String destino, String foto, String color, String marca, String placa) {
+    public Conductores(String nombre, String ubicacion, String destino, String foto, String color, String marca, String placa, String estado) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.destino = destino;
@@ -26,6 +27,7 @@ public class Conductores
         this.color = color;
         this.marca = marca;
         this.placa = placa;
+        this.estado = estado;
     }
 
     public String getNombre() {
@@ -84,5 +86,12 @@ public class Conductores
         this.destino = destino;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
 

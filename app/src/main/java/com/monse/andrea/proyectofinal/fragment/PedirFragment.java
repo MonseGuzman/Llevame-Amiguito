@@ -26,11 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.monse.andrea.proyectofinal.DatosActivity;
 import com.monse.andrea.proyectofinal.R;
 import com.monse.andrea.proyectofinal.adapters.ConductoresAdapter;
-import com.monse.andrea.proyectofinal.clases.Cliente;
 import com.monse.andrea.proyectofinal.clases.Conductores;
 
 import java.util.ArrayList;
@@ -164,7 +162,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
                                 dataSnapshot.getValue(Conductores.class).getNombre(), dataSnapshot.getValue(Conductores.class).getUbicacion(),
                                 dataSnapshot.getValue(Conductores.class).getDestino(), dataSnapshot.getValue(Conductores.class).getFoto(),
                                 dataSnapshot.getValue(Conductores.class).getColor(), dataSnapshot.getValue(Conductores.class).getMarca(),
-                                dataSnapshot.getValue(Conductores.class).getPlaca());
+                                dataSnapshot.getValue(Conductores.class).getPlaca(), dataSnapshot.getValue(Conductores.class).getEstado());
 
                         list.add(conductores);
 
