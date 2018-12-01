@@ -76,4 +76,6 @@ public class ConductoresAdapter extends BaseAdapter
         ImageView ContactoImageView;
         TextView nombreTextView, domicilioTextView, destinoTextView;
     }
+
+
 }

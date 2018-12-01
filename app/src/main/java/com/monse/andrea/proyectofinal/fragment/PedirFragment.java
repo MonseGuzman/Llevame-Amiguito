@@ -135,7 +135,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
         startActivity(intent);
     }
 
-    public class consulta extends AsyncTask<Void, Void, Void >
+    private class consulta extends AsyncTask<Void, Void, Void >
     {
         String ubicacion;
         private List<Conductores> list = new ArrayList<>();
