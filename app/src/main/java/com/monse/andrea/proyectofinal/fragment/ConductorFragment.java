@@ -74,6 +74,8 @@ public class ConductorFragment extends Fragment
                 else
                 {
                     //código para la búsqueda
+                    consulta c = new consulta();
+                    c.execute();
                     Toast.makeText(getActivity(), "Busca", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -134,13 +136,7 @@ public class ConductorFragment extends Fragment
 
     private class consulta extends AsyncTask<Void, Void, Void >
     {
-        String ubicacion;
         private List<Cliente> list = new ArrayList<>();
-
-        public consulta(String ubicacion)
-        {
-            this.ubicacion = ubicacion;
-        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -154,7 +150,8 @@ public class ConductorFragment extends Fragment
                     Log.d("addChildEventListener", dataSnapshot.getValue().toString());
                     Cliente cliente = new Cliente(
                                 dataSnapshot.getValue(Cliente.class).getNombre(), dataSnapshot.getValue(Cliente.class).getUbicacion(),
-                                dataSnapshot.getValue(Cliente.class).getDestino(), dataSnapshot.getValue(Cliente.class).getFoto());
+                                dataSnapshot.getValue(Cliente.class).getDestino(), dataSnapshot.getValue(Cliente.class).getFoto(),
+                                dataSnapshot.getValue(Cliente.class).getViajaCon());
 
                         list.add(cliente);
                 }

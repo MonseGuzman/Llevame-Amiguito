@@ -162,7 +162,8 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
                                 dataSnapshot.getValue(Conductores.class).getNombre(), dataSnapshot.getValue(Conductores.class).getUbicacion(),
                                 dataSnapshot.getValue(Conductores.class).getDestino(), dataSnapshot.getValue(Conductores.class).getFoto(),
                                 dataSnapshot.getValue(Conductores.class).getColor(), dataSnapshot.getValue(Conductores.class).getMarca(),
-                                dataSnapshot.getValue(Conductores.class).getPlaca(), dataSnapshot.getValue(Conductores.class).getEstado());
+                                dataSnapshot.getValue(Conductores.class).getPlaca(), dataSnapshot.getValue(Conductores.class).getEstado(),
+                                dataSnapshot.getValue(Conductores.class).getViajaCon());
 
                         list.add(conductores);
 

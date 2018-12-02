@@ -157,7 +157,7 @@ public class AmiguitoActivity extends AppCompatActivity
 
                 if (auto) //conductor
                 {
-                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas, "");
+                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas, "", "");
                     databaseReference.child("conductores").child(account.getId())
                             .setValue(conductores);
 
@@ -166,7 +166,7 @@ public class AmiguitoActivity extends AppCompatActivity
                 }
                 else //cliente
                 {
-                    Cliente cliente = new Cliente(account.getDisplayName(), "", "", account.getPhotoUrl().toString());
+                    Cliente cliente = new Cliente(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), "");
                     databaseReference.child("cliente").child(account.getId())
                             .setValue(cliente);
 

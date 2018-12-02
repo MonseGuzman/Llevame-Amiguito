@@ -6,15 +6,17 @@ public class Cliente
     private String ubicacion;
     private String destino;
     private String foto;
+    private String viajaCon;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String ubicacion, String destino, String foto) {
+    public Cliente(String nombre, String ubicacion, String destino, String foto, String viajaCon) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.destino = destino;
         this.foto = foto;
+        this.viajaCon = viajaCon;
     }
 
     public String getNombre() {
@@ -47,5 +49,13 @@ public class Cliente
 
     public void setDestino(String destino) {
         this.destino = destino;
+    }
+
+    public String getViajaCon() {
+        return viajaCon;
+    }
+
+    public void setViajaCon(String viajaCon) {
+        this.viajaCon = viajaCon;
     }
 }

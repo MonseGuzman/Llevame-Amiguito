@@ -15,11 +15,12 @@ public class Conductores
     private String marca;
     private String placa;
     private String estado;
+    private String viajaCon;
 
     public Conductores() {
     }
 
-    public Conductores(String nombre, String ubicacion, String destino, String foto, String color, String marca, String placa, String estado) {
+    public Conductores(String nombre, String ubicacion, String destino, String foto, String color, String marca, String placa, String estado, String viajaCon) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.destino = destino;
@@ -28,6 +29,7 @@ public class Conductores
         this.marca = marca;
         this.placa = placa;
         this.estado = estado;
+        this.viajaCon = viajaCon;
     }
 
     public String getNombre() {
@@ -92,6 +94,14 @@ public class Conductores
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getViajaCon() {
+        return viajaCon;
+    }
+
+    public void setViajaCon(String viajaCon) {
+        this.viajaCon = viajaCon;
     }
 }
 
