@@ -1,6 +1,5 @@
 package com.monse.andrea.proyectofinal;
 
-import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -33,7 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.monse.andrea.proyectofinal.adapters.TabsAdapter;
-import com.monse.andrea.proyectofinal.application.NotificationHandler;
 import com.monse.andrea.proyectofinal.clases.Cliente;
 import com.monse.andrea.proyectofinal.clases.Conductores;
 import com.monse.andrea.proyectofinal.preferences.PreferenciasActitvity;
@@ -42,9 +38,6 @@ public class AmiguitoActivity extends AppCompatActivity
 {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
-    private Button button;
-    private NotificationHandler notificationHandler;
 
     private GoogleApiClient googleApiClient;
     private DatabaseReference databaseReference;
@@ -59,17 +52,6 @@ public class AmiguitoActivity extends AppCompatActivity
         configuracionGoogle();
         tab();
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        notificationHandler = new NotificationHandler(this);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Notification.Builder nb = notificationHandler.createNotification(getString(R.string.app_name),"mensaje", true);
-                //se le incrementa antes de mandarse
-                notificationHandler.getManager().notify(0, nb.build()); //lanza la notificacion
-                notificationHandler.publishNotifiacitionSummaryGroup(true);
-            }
-        });
     }
 
     private void configuracionGoogle()
@@ -128,8 +110,6 @@ public class AmiguitoActivity extends AppCompatActivity
     {
         tabLayout = (TabLayout)findViewById(R.id.tabs);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-
-        button = (Button)findViewById(R.id.button);
     }
 
     private void iniciarNuevamente()

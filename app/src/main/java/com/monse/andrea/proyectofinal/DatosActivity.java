@@ -21,6 +21,9 @@ public class DatosActivity extends AppCompatActivity
     private Button PedirButton;
     private ImageView FotoImageView;
     private SharedPreferences preferences;
+
+    private Boolean ban;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +39,22 @@ public class DatosActivity extends AppCompatActivity
 
     private void cargarDatos(Bundle bundle)
     {
-        String nombre = bundle.getString("nombre");
-        String foto = bundle.getString("foto");
-        String destino = bundle.getString("destino");
-        String placa = bundle.getString("placa");
-        String color = bundle.getString("color");
+        String nombre = bundle.getString("nombre", "");
+        String foto = bundle.getString("foto", "");
+        String destino = bundle.getString("destino", "");
+        String placa = bundle.getString("placa", "");
+        String color = bundle.getString("color", "");
+        ban = bundle.getBoolean("conductor", false);
 
         nombrePersonaTextView.setText(nombre);
         SuDestinoPersonaTextView.setText(destino);
-        DatosConductorTextView.setText("PLACAS : " + placa + "\n"+
-                                        "COLOR : " + color + "\n");
+
+        if(!placa.isEmpty())
+            DatosConductorTextView.setText("PLACAS : " + placa + "\n"+
+                                            "COLOR : " + color + "\n");
+        else
+            DatosConductorTextView.setVisibility(View.INVISIBLE);
+
         Picasso.get().load(foto).into(FotoImageView);
 
     }
@@ -61,9 +70,21 @@ public class DatosActivity extends AppCompatActivity
 
     public void aceptar(View view)
     {
-        String id = preferences.getString("id", "");
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
-        databaseReference.child("cliente").child(id).child("viajaCon").setValue(id);
+        if(!ban)
+        {
+            String id = preferences.getString("id", "");
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference();
+            databaseReference.child("cliente").child(id).child("viajaCon").setValue(id);
+        }
+        else
+        {
+            String id = preferences.getString("id", "");
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference();
+            databaseReference.child("conductores").child(id).child("viajaCon").setValue(id);
+        }
+
+
     }
 }
