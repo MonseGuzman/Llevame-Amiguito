@@ -211,7 +211,13 @@ public class ConductorFragment extends Fragment implements AdapterView.OnItemCli
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.d("addChildEventListener", dataSnapshot.getValue().toString());
+                    Cliente cliente = new Cliente(
+                            dataSnapshot.getValue(Cliente.class).getNombre(), dataSnapshot.getValue(Cliente.class).getUbicacion(),
+                            dataSnapshot.getValue(Cliente.class).getDestino(), dataSnapshot.getValue(Cliente.class).getFoto(),
+                            dataSnapshot.getValue(Cliente.class).getViajaCon());
 
+                    list.add(cliente);
                 }
 
                 @Override

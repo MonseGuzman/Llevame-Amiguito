@@ -62,8 +62,8 @@ public class ConductoresAdapter extends BaseAdapter
 
         Conductores conductores = lista.get(position);
 
-
-        Picasso.get().load(conductores.getFoto()).into(vh.ContactoImageView);
+        if(!conductores.getFoto().equals(""))
+            Picasso.get().load(conductores.getFoto()).into(vh.ContactoImageView);
         vh.nombreTextView.setText(conductores.getNombre());
         vh.domicilioTextView.setText(conductores.getUbicacion());
         vh.destinoTextView.setText(conductores.getDestino());

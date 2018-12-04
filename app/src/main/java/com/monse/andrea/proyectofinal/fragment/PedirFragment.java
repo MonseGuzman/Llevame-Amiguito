@@ -56,7 +56,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
         databaseReference = FirebaseDatabase.getInstance().getReference("cliente");
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        listaConductores = new ArrayList<Conductores>();
+        listaConductores = new ArrayList<>();
 
         VamosTextView.setText(R.string.necesitasIrte);
         VamosTextView.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +139,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
     private class consulta extends AsyncTask<Void, Void, Void >
     {
         String ubicacion;
-        private List<Conductores> list = new ArrayList<Conductores>();
+        private List<Conductores> list;
         DelayedProgressDialog progressDialog = new DelayedProgressDialog();
 
         public consulta(String ubicacion)
@@ -161,12 +161,13 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
 
             Query query = FirebaseDatabase.getInstance().getReference().child("conductores");
 
+            list = new ArrayList<>();
             query.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    if(dataSnapshot.getValue(Conductores.class).getDestino().equals(ubicacion))
-                    {
+                  //  if(dataSnapshot.getValue(Conductores.class).getDestino().contains(ubicacion))
+                  //  {
                         Log.d("addChildEventListener", dataSnapshot.getValue().toString());
 
                         Conductores conductores = new Conductores(
@@ -178,12 +179,32 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
 
                         list.add(conductores);
 
-                    }
+                    //}
+                }
+
+                private void showData(DataSnapshot dataSnapshot)
+                {
+
                 }
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                    list = new ArrayList<>();
+                    //  if(dataSnapshot.getValue(Conductores.class).getDestino().contains(ubicacion))
+                    //  {
+                    Log.d("addChildEventListener", dataSnapshot.getValue().toString());
+
+                    Conductores conductores = new Conductores(
+                            dataSnapshot.getValue(Conductores.class).getNombre(), dataSnapshot.getValue(Conductores.class).getUbicacion(),
+                            dataSnapshot.getValue(Conductores.class).getDestino(), dataSnapshot.getValue(Conductores.class).getFoto(),
+                            dataSnapshot.getValue(Conductores.class).getColor(), dataSnapshot.getValue(Conductores.class).getMarca(),
+                            dataSnapshot.getValue(Conductores.class).getPlaca(), dataSnapshot.getValue(Conductores.class).getEstado(),
+                            dataSnapshot.getValue(Conductores.class).getViajaCon());
+
+                    list.add(conductores);
+
+                    //}
                 }
 
                 @Override
@@ -209,7 +230,7 @@ public class PedirFragment extends Fragment implements AdapterView.OnItemClickLi
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             listaConductores = list;
-            cargarLista(list);
+            cargarLista(listaConductores);
             progressDialog.cancel();
         }
     }

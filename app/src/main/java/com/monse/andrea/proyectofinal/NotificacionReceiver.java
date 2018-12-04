@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.content.BroadcastReceiver;
@@ -36,6 +37,9 @@ public class NotificacionReceiver extends BroadcastReceiver {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
+        final Bundle bundle = intent.getExtras();
+        final String nombre = bundle.getString("nombre");
+
 
 
         databaseReference.child("cliente")
@@ -47,7 +51,7 @@ public class NotificacionReceiver extends BroadcastReceiver {
                         for (DataSnapshot child: children)
                         {
                             Cliente cliente = child.getValue(Cliente.class);
-                            if(cliente.getViajaCon() == preferences.getString("id", ""))
+                            if(cliente.getNombre().equals(nombre))
                             {
                                 createNotificationChannel(context);
 

@@ -52,6 +52,7 @@ public class AmiguitoActivity extends AppCompatActivity
         configuracionGoogle();
         tab();
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
     }
 
     private void configuracionGoogle()
@@ -154,23 +155,29 @@ public class AmiguitoActivity extends AppCompatActivity
                 String placas = preferences.getString("placas", "");
                 String color = preferences.getString("color", "");
                 String marca = preferences.getString("marca", "");
+                String foto="";
+                if (! (account.getPhotoUrl() == null))
+                {
+                    foto = account.getPhotoUrl().toString();
+                }
 
                 if (auto) //conductor
                 {
-                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), color, marca, placas, "", "");
+
+                    Conductores conductores = new Conductores(account.getDisplayName(), "", "", foto, color, marca, placas, "", "");
                     databaseReference.child("conductores").child(account.getId())
                             .setValue(conductores);
 
-                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "");
+                    guardarLogin(account.getId(), account.getDisplayName(), foto, "", "");
                     Log.d("a", "envio los datos conductor");
                 }
                 else //cliente
                 {
-                    Cliente cliente = new Cliente(account.getDisplayName(), "", "", account.getPhotoUrl().toString(), "");
+                    Cliente cliente = new Cliente(account.getDisplayName(), "", "", foto, "");
                     databaseReference.child("cliente").child(account.getId())
                             .setValue(cliente);
 
-                    guardarLogin(account.getId(), account.getDisplayName(), account.getPhotoUrl().toString(), "", "", "Disponible");
+                    guardarLogin(account.getId(), account.getDisplayName(), foto, "", "", "Disponible");
                     Log.d("a", "envio los datos cliente");
                 }
             }
@@ -244,4 +251,11 @@ public class AmiguitoActivity extends AppCompatActivity
 
         verificarConductor();
     }
+
+    private void recibirMensajes()
+    {
+
+    }
+
+
 }

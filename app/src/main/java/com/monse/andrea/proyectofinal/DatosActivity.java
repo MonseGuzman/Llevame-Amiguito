@@ -1,5 +1,6 @@
 package com.monse.andrea.proyectofinal;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DatosActivity extends AppCompatActivity
 {
     private TextView nombrePersonaTextView;
@@ -23,6 +27,7 @@ public class DatosActivity extends AppCompatActivity
     private SharedPreferences preferences;
 
     private Boolean ban;
+    private String nom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,7 @@ public class DatosActivity extends AppCompatActivity
         iniciar();
 
         Bundle bundle = getIntent().getExtras();
+        nom = bundle.getString("nombre");
         cargarDatos(bundle);
 
     }
@@ -55,7 +61,8 @@ public class DatosActivity extends AppCompatActivity
         else
             DatosConductorTextView.setVisibility(View.INVISIBLE);
 
-        Picasso.get().load(foto).into(FotoImageView);
+        if(!foto.equals(""))
+            Picasso.get().load(foto).into(FotoImageView);
 
     }
 
@@ -75,16 +82,25 @@ public class DatosActivity extends AppCompatActivity
             String id = preferences.getString("id", "");
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference();
-            databaseReference.child("cliente").child(id).child("viajaCon").setValue(id);
+            databaseReference.child("cliente").child(id).child("viajaCon").setValue(nom);
+            Intent intent = new Intent(this,NotificacionReceiver.class);
+            intent.putExtra("nombre", nom);
+            sendBroadcast(intent);
         }
         else
         {
             String id = preferences.getString("id", "");
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference();
-            databaseReference.child("conductores").child(id).child("viajaCon").setValue(id);
+            databaseReference.child("conductores").child(id).child("viajaCon").setValue(nom);
+            Intent intent = new Intent(this,NotificacionReceiver.class);
+            intent.putExtra("nombre", nom);
+            sendBroadcast(intent);
+            databaseReference.child("mensajes").child(id).child("mensaje").setValue(preferences.getString("nombre", "") + " quiere viajar contigo");
+
         }
 
 
-    }
+    }x6
+
 }
